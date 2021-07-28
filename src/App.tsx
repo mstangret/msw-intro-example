@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FunctionComponent } from 'react';
+import { useEffect, useState } from "react";
 
-function App() {
+type Post = {
+  title: string;
+  body: string;
+  userId: number;
+};
+
+const App : FunctionComponent = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => res.json())
+      .then((posts) => {
+        setPosts(posts);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>blog post</h1>
+      {posts && posts.slice(0, 5).map((post) => (
+        <div key={post.title} data-testid="post">
+          <h2>{post.title}</h2>
+          <div>{post.body}</div>
+        </div>
+      ))}
     </div>
   );
 }
