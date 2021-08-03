@@ -69,19 +69,4 @@ describe("App", () => {
     })
     expect(screen.queryByTestId("post")).not.toBeInTheDocument();
   });
-
-  it("renders generic error when there is a network outage", async () => {
-    server.use(
-      rest.get("https://jsonplaceholder.typicode.com/posts", (_, res, ctx) => {
-        return res.networkError("")
-      })
-    )
-
-    render(<App />);
-
-    await waitFor(() => {
-      expect(screen.getByText("Generic error", {exact: false})).toBeInTheDocument()
-    })
-    expect(screen.queryByTestId("post")).not.toBeInTheDocument();
-  });
 });
