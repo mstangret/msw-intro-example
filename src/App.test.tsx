@@ -32,17 +32,17 @@ describe("App", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "Second post" })
-          ).toBeInTheDocument();
+    ).toBeInTheDocument();
   });
 
   it("doesn't crash when there are no posts", async () => {
     server.use(
       rest.get("https://jsonplaceholder.typicode.com/posts", (_, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json([])
-    );
-  })
+        return res(
+          ctx.status(200),
+          ctx.json([])
+        );
+      })
     )
     render(<App />);
 
