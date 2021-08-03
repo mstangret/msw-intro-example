@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { useEffect, useState } from "react";
-import { Header, PostContainer, Title } from 'styles';
+import { Container, Header, PostContainer, Title } from 'styles';
 
 type Post = {
   title: string;
@@ -24,15 +24,15 @@ const App : FunctionComponent = () => {
   }, [setPosts]);
 
   return (
-    <div>
+    <Container>
       <Header>My Awesome blog</Header>
       {posts && posts.slice(0, 5).map((post) => (
         <PostContainer key={post.title} data-testid="post">
           <Title>{post.title}</Title>
-          <div>{post.body}</div>
+          <span>{post.body}</span>
         </PostContainer>
       ))}
-    </div>
+    </Container>
   );
 }
 
